@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Havit.NewProjectTemplate.Facades.Properties;
 using Havit.NewProjectTemplate.WebAPI.Infrastructure.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,8 +14,12 @@ namespace Havit.NewProjectTemplate.WebAPI.Infrastructure.ConfigurationExtensions
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("current", new Info { Title = "NewProjectTemplate" });
-                c.CustomSchemaIds(type => type.FullName);
+				c.SwaggerDoc("current", new Info
+				{
+					Title = "NewProjectTemplate",
+					Version = System.Diagnostics.FileVersionInfo.GetVersionInfo(typeof(AssemblyInfo).Assembly.Location).ProductVersion
+				});
+				c.CustomSchemaIds(type => type.FullName);
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Havit.NewProjectTemplate.WebAPI.xml"));
                 c.DescribeAllEnumsAsStrings();
                 c.OperationFilter<FileUploadOperation>(); //Register File Upload Operation Filter
