@@ -54,12 +54,10 @@
 	</ItemGroup>
   </Target>
 
-  <Target Name="TfsPublish" AfterTargets="AfterPublish" Condition="'$(PublishDirectory)' != ''">
+  <Target Name="TfsPublish" AfterTargets="AfterBuild" Condition="'$(PublishDirectory)' != ''">
     <ItemGroup>
-      <WebToCopy Include="obj\Release\TfsPublish\**\*.*" />
-      <WebToCopy Remove="obj\Release\TfsPublish\Config\*.*" />
+      <PublishToCopy Include="obj\Release\TfsPublish\*.zip" />
     </ItemGroup>
-    <Copy SourceFiles="@(WebToCopy)" DestinationFiles="@(WebToCopy->'$(PublishDirectory)\Web\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(PublishToCopy)" DestinationFolder="$(PublishDirectory)\Web" />
   </Target>
-
 </Project>
