@@ -1,35 +1,37 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>netcoreapp2.2</TargetFramework>
-		<AssemblyName>Havit.NewProjectTemplate.Tests</AssemblyName>
-		<RootNamespace>Havit.NewProjectTemplate.Tests</RootNamespace>
-	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>Havit.NewProjectTemplate.Tests</AssemblyName>
+    <RootNamespace>Havit.NewProjectTemplate.Tests</RootNamespace>
+    <!-- Nasměrujeme publish složku mimo bin aby nedocházelo ke dvojímu spoštění unit testů (ze bin\Release\netcoreapp a bin\Release\netcoreapp\publish) -->
+    <PublishDir>obj\$(Configuration)\publish</PublishDir>
+  </PropertyGroup>
 
-	<ItemGroup>
-	  <None Remove="appsettings.json" />
-	</ItemGroup>
+  <ItemGroup>
+    <None Remove="appsettings.json" />
+  </ItemGroup>
 
-	<ItemGroup>
-	  <Content Include="appsettings.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	</ItemGroup>
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.1" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.2.1" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
-		<PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
-		<PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
-	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.2.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\DataLayer\DataLayer.csproj" />
-		<ProjectReference Include="..\Entity\Entity.csproj" />
-		<ProjectReference Include="..\Facades\Facades.csproj" />
-		<ProjectReference Include="..\Model\Model.csproj" />
-		<ProjectReference Include="..\Services\Services.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
+    <ProjectReference Include="..\Entity\Entity.csproj" />
+    <ProjectReference Include="..\Facades\Facades.csproj" />
+    <ProjectReference Include="..\Model\Model.csproj" />
+    <ProjectReference Include="..\Services\Services.csproj" />
+  </ItemGroup>
 
 </Project>
