@@ -23,6 +23,7 @@ namespace Havit.NewProjectTemplate.WebAPI.Infrastructure.ConfigurationExtensions
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Havit.NewProjectTemplate.WebAPI.xml"));
                 c.DescribeAllEnumsAsStrings();
                 c.OperationFilter<FileUploadOperation>(); //Register File Upload Operation Filter
+				c.DocumentFilter<DataSeedProfileDocumentFilter>();
             });
 
         }

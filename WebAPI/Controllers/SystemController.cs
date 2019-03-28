@@ -28,7 +28,7 @@ namespace Havit.NewProjectTemplate.WebAPI.Controllers
 
         /// <summary>
         /// Provede seedování dat zadaného profilu.
-        /// Název profilu nemá obsahovat "Profile", vyhledává se dle názvu typu bez ohledu na velikost písmen.
+        /// Název profilu musí být celý název typu bez ohledu na velikost písmen.
         /// </summary>
         /// <param name="profile">Název profilu k seedování.</param>
         [HttpPost("api/system/seed/{profile}")]
