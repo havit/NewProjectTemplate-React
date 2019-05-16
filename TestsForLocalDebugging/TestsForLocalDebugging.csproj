@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+	<IsPackable>false</IsPackable>
     <AssemblyName>Havit.NewProjectTemplate.TestsForLocalDebugging</AssemblyName>
     <RootNamespace>Havit.NewProjectTemplate.TestsForLocalDebugging</RootNamespace>
     <!-- Nasměrujeme publish složku mimo bin aby nedocházelo ke dvojímu spoštění unit testů (ze bin\Release\netcoreapp a bin\Release\netcoreapp\publish) -->
@@ -14,13 +15,14 @@
     <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
-    <ProjectReference Include="..\Entity\Entity.csproj" />
-    <ProjectReference Include="..\Facades\Facades.csproj" />
-    <ProjectReference Include="..\Model\Model.csproj" />
-    <ProjectReference Include="..\Services\Services.csproj" />
-    <ProjectReference Include="..\WindsorInstallers\WindsorInstallers.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\DataLayer\DataLayer.csproj" />
+		<ProjectReference Include="..\Entity\Entity.csproj" />
+		<ProjectReference Include="..\Facades\Facades.csproj" />
+		<ProjectReference Include="..\Model\Model.csproj" />
+		<ProjectReference Include="..\Services\Services.csproj" />
+		<ProjectReference Include="..\TestHelpers\TestHelpers.csproj" />
+		<ProjectReference Include="..\WindsorInstallers\WindsorInstallers.csproj" />
+	</ItemGroup>
 
 </Project>

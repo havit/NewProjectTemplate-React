@@ -41,7 +41,7 @@ namespace Havit.NewProjectTemplate.WindsorInstallers
 		}
 
 		[MethodImpl(MethodImplOptions.NoInlining)]
-		public static IWindsorContainer ConfigureForTests(this IWindsorContainer container)
+		public static IWindsorContainer ConfigureForTests(this IWindsorContainer container, bool useInMemoryDb = true)
 		{
 			string environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 			if (string.IsNullOrEmpty(environment))
@@ -60,6 +60,7 @@ namespace Havit.NewProjectTemplate.WindsorInstallers
 				DatabaseConnectionString = configuration.GetConnectionString("Database"),
 				ServiceProfiles = new[] { ServiceAttribute.DefaultProfile },
 				ScopedLifestyle = lf => lf.Scoped(),
+				UseInMemoryDb = useInMemoryDb,
 			};
 
 			return container.ConfigureForAll(installConfiguration);
@@ -85,10 +86,14 @@ namespace Havit.NewProjectTemplate.WindsorInstallers
 
 		private static void InstallHavitEntityFramework(IWindsorContainer container, InstallConfiguration configuration)
 		{
+			DbContextOptions options = configuration.UseInMemoryDb
+				? new DbContextOptionsBuilder<NewProjectTemplateDbContext>().UseInMemoryDatabase(nameof(NewProjectTemplateDbContext)).Options
+				: new DbContextOptionsBuilder<NewProjectTemplateDbContext>().UseSqlServer(configuration.DatabaseConnectionString, c => c.MaxBatchSize(30)).Options;
+
 			container.WithEntityPatternsInstaller(new ComponentRegistrationOptions { GeneralLifestyle = configuration.ScopedLifestyle })
 				.RegisterEntityPatterns()
 				//.RegisterLocalizationServices<Language>()
-				.RegisterDbContext<NewProjectTemplateDbContext>(new DbContextOptionsBuilder<NewProjectTemplateDbContext>().UseSqlServer(configuration.DatabaseConnectionString).Options)
+				.RegisterDbContext<NewProjectTemplateDbContext>(options)
 				.RegisterDataLayer(typeof(ILoginAccountDataSource).Assembly);
 		}
 

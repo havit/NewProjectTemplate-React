@@ -9,5 +9,6 @@ namespace Havit.NewProjectTemplate.WindsorInstallers
 		public string DatabaseConnectionString { get; set; }
 		public Func<LifestyleGroup<object>, ComponentRegistration<object>> ScopedLifestyle { get; set; }
 		public string[] ServiceProfiles { get; set; }
+		public bool UseInMemoryDb { get; internal set; }
 	}
 }

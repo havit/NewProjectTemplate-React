@@ -9,8 +9,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Havit.NewProjectTemplate.TestsForLocalDebugging.DataLayer.Seeds
 {
 	[TestClass]
-	public class DataSeedingTests : TestBase
+	public class DataSeedingTests : TestForLocalDebuggingBase
 	{
+		protected override bool UseLocalDb => true;
+
 		//[TestMethod]
 		[TestCategory("Explicit")]
 		public void DataSeedRunner_SeedCoreProfile()
@@ -19,6 +21,7 @@ namespace Havit.NewProjectTemplate.TestsForLocalDebugging.DataLayer.Seeds
 			var dbContext = Container.Resolve<IDbContext>();
 			var seedRunner = Container.Resolve<IDataSeedRunner>();
 			dbContext.Database.EnsureDeleted();
+			dbContext.Database.EnsureCreated();
 			dbContext.Database.Migrate();
 
 			// act
