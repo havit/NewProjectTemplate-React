@@ -101,7 +101,7 @@ namespace Havit.NewProjectTemplate.WindsorInstallers
 		{
 			// HAVIT .NET Framework Extensions
 			container.Register(Component.For<ITimeService>().ImplementedBy<ApplicationTimeService>().LifestyleSingleton());
-			container.Register(Component.For<ICacheService>().Instance(new ObjectCacheService(new MemoryCache("NewProjectTemplate"), false)));
+			container.Register(Component.For<ICacheService>().ImplementedBy<MemoryCacheService>().DependsOn(Dependency.OnValue("supportCacheDependencies", false)).LifestyleSingleton());
 		}
 
 		private static void InstallByServiceAttribute(IWindsorContainer container, InstallConfiguration configuration)
