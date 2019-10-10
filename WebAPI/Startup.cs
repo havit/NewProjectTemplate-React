@@ -16,6 +16,11 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Options;
 using Havit.NewProjectTemplate.WebAPI.Infrastructure.Tools;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
+using Havit.AspNetCore.Mvc.ExceptionMonitoring.Filters;
+using Havit.NewProjectTemplate.WebAPI.Infrastructure.Security;
+using Havit.NewProjectTemplate.Facades.Infrastructure.Security.Authentication;
+using Havit.NewProjectTemplate.Facades.Infrastructure.Security.Claims;
 
 [assembly: ApiControllerAttribute]
 
@@ -33,7 +38,7 @@ namespace Havit.NewProjectTemplate.WebAPI
         /// <summary>
         /// Configure services.
         /// </summary>
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -56,14 +61,16 @@ namespace Havit.NewProjectTemplate.WebAPI
 
 			services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
-			IWindsorContainer windsorContainer = WindsorCastleConfiguration.CreateWindsorContainer(configuration);
-            return services.AddCustomizedServiceProvider(windsorContainer);
-        }
+			services.AddTransient<ErrorMonitoringFilter>();
+			services.AddScoped<IApplicationAuthenticationService, ApplicationAuthenticationService>();
+			services.AddScoped<IUserContextInfoBuilder, Infrastructure.Security.UserContextInfoBuilder>();
 
-        /// <summary>
-        /// Configure middleware.
-        /// </summary>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IOptions<Havit.NewProjectTemplate.WebAPI.Infrastructure.Cors.CorsOptions> corsOptions)
+		}
+
+		/// <summary>
+		/// Configure middleware.
+		/// </summary>
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IOptions<Havit.NewProjectTemplate.WebAPI.Infrastructure.Cors.CorsOptions> corsOptions)
         {
 			if (env.IsDevelopment())
 	        {
@@ -78,9 +85,10 @@ namespace Havit.NewProjectTemplate.WebAPI
 
 			app.UseExceptionMonitoring();
 			app.UseErrorToJson();
-            app.UseMvc();
+			app.UseRouting();
+			app.UseEndpoints(endpoints => endpoints.MapControllers());
 
-            app.UseCustomizedOpenApiSwaggerUI();
+			app.UseCustomizedOpenApiSwaggerUI();
 
 	        app.UpgradeDatabaseSchemaAndData();
         }
