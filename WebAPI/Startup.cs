@@ -50,7 +50,7 @@ namespace Havit.NewProjectTemplate.WebAPI
 			services.AddCustomizedErrorToJson();
 
             services.AddCustomizedCors(configuration);
-            services.AddCustomizedSwagger();			
+            services.AddCustomizedOpenApi();			
 
 	        services.AddApplicationInsightsTelemetry(configuration);
 
@@ -80,7 +80,7 @@ namespace Havit.NewProjectTemplate.WebAPI
 			app.UseErrorToJson();
             app.UseMvc();
 
-            app.UseCustomizedSwaggerAndUI();
+            app.UseCustomizedOpenApiSwaggerUI();
 
 	        app.UpgradeDatabaseSchemaAndData();
         }
