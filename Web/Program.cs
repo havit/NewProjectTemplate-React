@@ -14,36 +14,36 @@ namespace Havit.NewProjectTemplate.Web
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
-        }
+			CreateWebHostBuilder(args).Build().Run();
+		}
 
-	    public static IWebHost BuildWebHost(string[] args) =>
-		    WebHost.CreateDefaultBuilder(args)
-			    .UseApplicationInsights()
-			    .UseStartup<Startup>()
+		public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+		{
+			return WebHost.CreateDefaultBuilder(args)
+				.UseStartup<Startup>()
 #if DEBUG
-			    .UseEnvironment("Development") // pro pohodlnější spuštění z command line
+				.UseEnvironment("Development") // pro pohodlnější spuštění z command line
 			    .UseUrls("http://localhost:9900") // pro pohodlnější spuštění z command line
 #endif
-			    .ConfigureAppConfiguration((hostContext, config) =>
-			    {
-				    // delete all default configuration providers
-				    config.Sources.Clear();
-				    config
-					    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-					    .AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true)
-					    .AddJsonFile(@"Config\appsettings.json", optional: true, reloadOnChange: true)
-					    .AddEnvironmentVariables();
-			    })
-			    .ConfigureLogging((hostingContext, logging) =>
-			    {
-				    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-				    logging.AddConsole();
-				    logging.AddDebug();
+				.ConfigureAppConfiguration((hostContext, config) =>
+				{
+					// delete all default configuration providers
+					config.Sources.Clear();
+					config
+						.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+						.AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+						.AddJsonFile(@"Config\appsettings.json", optional: true, reloadOnChange: true)
+						.AddEnvironmentVariables();
+				})
+				.ConfigureLogging((hostingContext, logging) =>
+				{
+					logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+					logging.AddConsole();
+					logging.AddDebug();
 #if !DEBUG
 					logging.AddEventLog();
 #endif
-			    })
-				.Build();
+				});
+		}
     }
 }

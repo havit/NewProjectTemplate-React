@@ -7,11 +7,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.Extensions.Hosting;
 
 namespace Havit.NewProjectTemplate.Web
 {
@@ -30,25 +31,26 @@ namespace Havit.NewProjectTemplate.Web
         {
             services.AddOptions();
             services.AddMemoryCache();
-            services.AddMvc();
+			services.AddControllersWithViews();
 
-            services.Configure<WebApiSettings>(configuration.GetSection("AppSettings:WebApi"));
+			services.Configure<WebApiSettings>(configuration.GetSection("AppSettings:WebApi"));
 
 			services.AddExceptionMonitoring(configuration);
 	        services.AddApplicationInsightsTelemetry(configuration);
+
+			// In production, the React files will be served from this directory
+			services.AddSpaStaticFiles(configuration =>
+			{
+				configuration.RootPath = "wwwroot/dist";
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
-				app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-				{
-					HotModuleReplacement = true,
-					ReactHotModuleReplacement = true
-				});
 			}
 			else
 			{
@@ -56,17 +58,26 @@ namespace Havit.NewProjectTemplate.Web
 			}
 
 			app.UseStaticFiles();
+			app.UseSpaStaticFiles();
 
 			app.UseExceptionMonitoring();
-			app.UseMvc(routes =>
-			{
-				routes.MapRoute(
-					name: "default",
-					template: "{controller=Default}/{action=Index}/{id?}");
+			app.UseRouting();
 
-				routes.MapSpaFallbackRoute(
-					name: "spa-fallback",
-					defaults: new { controller = "Default", action = "Index" });
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapControllerRoute(
+					name: "default",
+					pattern: "{controller=Default}/{action=Index}/{id?}");
+			});
+
+			app.UseSpa(spa =>
+			{
+				spa.Options.SourcePath = "ClientApp";
+
+				//if (env.IsDevelopment())
+				//{
+				//	spa.UseReactDevelopmentServer(npmScript: "start");
+				//}
 			});
 		}
     }
