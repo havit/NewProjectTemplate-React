@@ -20,11 +20,10 @@ namespace Havit.NewProjectTemplate.WebAPI
 			return Host.CreateDefaultBuilder(args)
 				.ConfigureWebHostDefaults(webBuilder =>
 				{
-					webBuilder
-						.UseStartup<Startup>()
+					webBuilder.UseStartup<Startup>();
 #if DEBUG
-						.UseEnvironment("Development") // pro Red-Gate ANTS Performance Profiler
-						.UseUrls("http://localhost:9901"); // pro Red-Gate ANTS Performance Profiler
+					webBuilder.UseEnvironment("Development"); // pro Red-Gate ANTS Performance Profiler
+					webBuilder.UseUrls("http://localhost:9901"); // pro Red-Gate ANTS Performance Profiler
 #endif
 				})
 				.UseServiceProviderFactory(ctx => new WebApiServiceProviderFactory(ctx.Configuration))
