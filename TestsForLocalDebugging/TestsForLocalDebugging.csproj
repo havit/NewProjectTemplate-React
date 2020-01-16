@@ -22,7 +22,7 @@
 		<ProjectReference Include="..\Model\Model.csproj" />
 		<ProjectReference Include="..\Services\Services.csproj" />
 		<ProjectReference Include="..\TestHelpers\TestHelpers.csproj" />
-		<ProjectReference Include="..\WindsorInstallers\WindsorInstallers.csproj" />
+		<ProjectReference Include="..\DependencyInjection\DependencyInjection.csproj" />
 	</ItemGroup>
 
 </Project>

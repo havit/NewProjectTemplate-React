@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Castle.Windsor;
 using Havit.NewProjectTemplate.TestHelpers;
-using Havit.NewProjectTemplate.WindsorInstallers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Havit.NewProjectTemplate.TestsForLocalDebugging

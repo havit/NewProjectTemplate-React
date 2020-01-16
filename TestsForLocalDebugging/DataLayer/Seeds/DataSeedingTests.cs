@@ -5,6 +5,8 @@ using Havit.NewProjectTemplate.Model.Common;
 using Havit.Data.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.Extensions.DependencyInjection;
+using Havit.Services.Caching;
 
 namespace Havit.NewProjectTemplate.TestsForLocalDebugging.DataLayer.Seeds
 {
@@ -18,17 +20,14 @@ namespace Havit.NewProjectTemplate.TestsForLocalDebugging.DataLayer.Seeds
 		public void DataSeedRunner_SeedCoreProfile()
 		{
 			// arrange
-			var dbContext = Container.Resolve<IDbContext>();
-			var seedRunner = Container.Resolve<IDataSeedRunner>();
+			var dbContext = ServiceProvider.GetRequiredService<IDbContext>();
+			var seedRunner = ServiceProvider.GetRequiredService<IDataSeedRunner>();
 			dbContext.Database.EnsureDeleted();
 			dbContext.Database.EnsureCreated();
 			dbContext.Database.Migrate();
 
 			// act
 			seedRunner.SeedData<CoreProfile>();
-
-			// clean up
-			Container.Release(seedRunner);
 
 			// assert
 			// no exception

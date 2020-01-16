@@ -31,7 +31,7 @@ namespace Havit.NewProjectTemplate.Facades.Infrastructure.Security.Claims
 
 	        UserContextInfo userContextInfo = userContextInfoBuilder.GetUserContextInfo(principal);
 			
-			// TODO: Doplnit custom claims (nebo odstranit celou mašinérii v této složce.
+			// TODO: Doplnit custom claims (nebo odstranit celou mašinérii v této složce).
 
 			return result;
         }

@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{2A8A9D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityTests", "EntityTests\EntityTests.csproj", "{E6DBF2DA-2E36-4C9D-86B4-C6D134689802}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindsorInstallers", "WindsorInstallers\WindsorInstallers.csproj", "{0E201C98-C6A0-489E-ADD7-C66AD493FD25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DependencyInjection", "DependencyInjection\DependencyInjection.csproj", "{0E201C98-C6A0-489E-ADD7-C66AD493FD25}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{5314128B-CD5D-45E7-8AAC-833D3339D9C4}"
 EndProject
@@ -38,13 +38,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelTests", "ModelTests\Mo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServicesTests", "ServicesTests\ServicesTests.csproj", "{2F16BD2B-4764-47E6-A9E6-21027E634B42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacadesTests", "FacadesTests\FacadesTests.csproj", "{2B7D3FCB-2538-4737-918F-F8A5F35B17E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FacadesTests", "FacadesTests\FacadesTests.csproj", "{2B7D3FCB-2538-4737-918F-F8A5F35B17E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayerTests", "DataLayerTests\DataLayerTests.csproj", "{E713978A-C098-4C13-8B37-66263990DBED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayerTests", "DataLayerTests\DataLayerTests.csproj", "{E713978A-C098-4C13-8B37-66263990DBED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{F6818461-E2B7-46EA-93F6-30F8E3F70286}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{F6818461-E2B7-46EA-93F6-30F8E3F70286}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHelpers", "TestHelpers\TestHelpers.csproj", "{694ABB09-FC12-4550-9AB3-88DB482D78E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestHelpers", "TestHelpers\TestHelpers.csproj", "{694ABB09-FC12-4550-9AB3-88DB482D78E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

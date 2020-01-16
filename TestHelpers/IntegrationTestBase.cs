@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Castle.MicroKernel.Lifestyle;
-using Castle.Windsor;
 using Havit.Data.EntityFrameworkCore;
 using Havit.Data.Patterns.DataSeeds;
 using Havit.NewProjectTemplate.DataLayer.Seeds.Core;
-using Havit.NewProjectTemplate.WindsorInstallers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Havit.NewProjectTemplate.DependencyInjection;
 
 namespace Havit.NewProjectTemplate.TestHelpers
 {
@@ -18,7 +17,7 @@ namespace Havit.NewProjectTemplate.TestHelpers
 	{
 		private IDisposable scope;
 
-		protected IWindsorContainer Container { get; private set; }
+		protected IServiceProvider ServiceProvider { get; private set; }
 
 		protected virtual bool UseLocalDb => false;
 		protected virtual bool DeleteDbData => true;
@@ -28,13 +27,12 @@ namespace Havit.NewProjectTemplate.TestHelpers
 		[TestInitialize]
 		public virtual void TestInitialize()
 		{
-			IWindsorContainer container = new WindsorContainer();
-			container.ConfigureForTests(useInMemoryDb: !UseLocalDb);
-			// TODO container.Register(Component.For<IApplicationAuthenticationService>().ImplementedBy<FakeApplicationAuthenticationService>().LifeStyle.Transient);
+			IServiceCollection services = CreateServiceCollection();
+			IServiceProvider serviceProvider = services.BuildServiceProvider();
 
-			scope = container.BeginScope();
+			scope = serviceProvider.CreateScope();
 
-			var dbContext = container.Resolve<IDbContext>();
+			var dbContext = serviceProvider.GetRequiredService<IDbContext>();
 			if (DeleteDbData)
 			{
 				dbContext.Database.EnsureDeleted();
@@ -42,25 +40,34 @@ namespace Havit.NewProjectTemplate.TestHelpers
 			if (this.UseLocalDb)
 			{
 				dbContext.Database.Migrate();
-				container.Release(dbContext);
 			}
 
 			if (this.SeedData)
 			{
-				var dataSeedRunner = container.Resolve<IDataSeedRunner>();
+				var dataSeedRunner = serviceProvider.GetRequiredService<IDataSeedRunner>();
 				dataSeedRunner.SeedData<CoreProfile>();
-				container.Release(dataSeedRunner);
 			}
 
-			this.Container = container;
+			this.ServiceProvider = serviceProvider;
 		}
 
 		[TestCleanup]
 		public virtual void TestCleanup()
 		{
 			scope.Dispose();
-			this.Container.Dispose();
-			this.Container = null;
+			if (this.ServiceProvider is IDisposable)
+			{
+				((IDisposable)this.ServiceProvider).Dispose();
+			}
+			this.ServiceProvider = null;
+		}
+		
+		protected virtual IServiceCollection CreateServiceCollection()
+		{
+			IServiceCollection services = new ServiceCollection();
+			services.ConfigureForTests(useInMemoryDb: !UseLocalDb);
+
+			return services;
 		}
 	}
 }

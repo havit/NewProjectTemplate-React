@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security;
-using Castle.Windsor;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +20,7 @@ using Havit.AspNetCore.Mvc.ExceptionMonitoring.Filters;
 using Havit.NewProjectTemplate.WebAPI.Infrastructure.Security;
 using Havit.NewProjectTemplate.Facades.Infrastructure.Security.Authentication;
 using Havit.NewProjectTemplate.Facades.Infrastructure.Security.Claims;
+using Havit.NewProjectTemplate.DependencyInjection;
 
 [assembly: ApiControllerAttribute]
 
@@ -40,10 +40,11 @@ namespace Havit.NewProjectTemplate.WebAPI
         /// </summary>
         public void ConfigureServices(IServiceCollection services)
         {
+			services.ConfigureForWebAPI(configuration);
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddOptions(); // Adds services required for using options.
-            services.AddMemoryCache(); // ie. IClaimsCacheStorage
 
 	        services.AddCustomizedRequestLocalization();
 			services.AddCustomizedMvc(configuration);

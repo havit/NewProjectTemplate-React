@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Havit.NewProjectTemplate.Facades.Infrastructure.Security.Claims;
 
 namespace Havit.NewProjectTemplate.WebAPI.Infrastructure.ConfigurationExtensions
 {
@@ -65,11 +66,10 @@ namespace Havit.NewProjectTemplate.WebAPI.Infrastructure.ConfigurationExtensions
 			//		});
 			//}
 			// Pod IClaimsTransformation je standardně zaregistrováno NoopClaimsTransformation
-			// Pokud přidáme naší vlastní službu přes Castle Windsor, je tato až druhá a není tak resolvována (uff),
-			// Proto tuto službu, kterou nechceme, odebereme (a použijeme službu zaregistrovanou přes Castle Windsor).
+			// Pokud přidáme naší vlastní službu, je tato až druhá a není tak resolvována (uff),
+			// Proto tuto službu, kterou nechceme, odebereme (a použijeme naší službu).
 			services.Remove(services.Where(item => item.ImplementationType == typeof(NoopClaimsTransformation)).Single());
-
-            addCustomizedAuthenticationCalled = true;
+			addCustomizedAuthenticationCalled = true;
 
         }
         private static bool addCustomizedAuthenticationCalled = false;

@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Facades\Facades.csproj" />
-    <ProjectReference Include="..\WindsorInstallers\WindsorInstallers.csproj" />
+    <ProjectReference Include="..\DependencyInjection\DependencyInjection.csproj" />
   </ItemGroup>
 
 </Project>

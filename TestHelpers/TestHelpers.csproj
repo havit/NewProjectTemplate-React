@@ -9,7 +9,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\WindsorInstallers\WindsorInstallers.csproj" />
+	  <ProjectReference Include="..\DependencyInjection\DependencyInjection.csproj" />
 	</ItemGroup>
 
 </Project>

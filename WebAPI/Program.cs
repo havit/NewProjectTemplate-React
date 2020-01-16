@@ -4,7 +4,6 @@ using Microsoft.AspNetCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
-using Havit.NewProjectTemplate.WindsorInstallers;
 
 namespace Havit.NewProjectTemplate.WebAPI
 {
@@ -26,7 +25,6 @@ namespace Havit.NewProjectTemplate.WebAPI
 					webBuilder.UseUrls("http://localhost:9901"); // pro Red-Gate ANTS Performance Profiler
 #endif
 				})
-				.UseServiceProviderFactory(ctx => new WebApiServiceProviderFactory(ctx.Configuration))
 				.ConfigureAppConfiguration((hostContext, config) =>
 				{
 					// delete all default configuration providers
