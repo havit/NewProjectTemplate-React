@@ -15,8 +15,8 @@ namespace Havit.NewProjectTemplate.Facades.Infrastructure.Security.Claims
     /// Optimalizace: Claims jsou drženy v cache, aby je nebylo nutné každý request skládat znovu a znovu.
     /// </summary>
     [Service(Profile = ServiceProfiles.WebAPI)]
-    public class ApplicationClaimsTransformation : IClaimsTransformation
-    {
+    public class ApplicationClaimsTransformation : IClaimsTransformation // TODO: Vyžaduje závislost na Microsoft.AspNetCore.Authentication (který je však naposled ve verzi 2.2.0), výhledově proto přesuneme třídu do WebAPI.
+	{
         private readonly IClaimsCacheStore claimsCacheStore;
 	    private readonly IUserContextInfoBuilder contextInfoBuilder;
 	    private readonly ICustomClaimsBuilder customClaimsBuilder;
