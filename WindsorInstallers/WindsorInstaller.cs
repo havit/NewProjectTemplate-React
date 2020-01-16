@@ -90,11 +90,11 @@ namespace Havit.NewProjectTemplate.WindsorInstallers
 				? new DbContextOptionsBuilder<NewProjectTemplateDbContext>().UseInMemoryDatabase(nameof(NewProjectTemplateDbContext)).Options
 				: new DbContextOptionsBuilder<NewProjectTemplateDbContext>().UseSqlServer(configuration.DatabaseConnectionString, c => c.MaxBatchSize(30)).Options;
 
-			container.WithEntityPatternsInstaller(new ComponentRegistrationOptions { GeneralLifestyle = configuration.ScopedLifestyle })
-				.RegisterEntityPatterns()
-				//.RegisterLocalizationServices<Language>()
-				.RegisterDbContext<NewProjectTemplateDbContext>(options)
-				.RegisterDataLayer(typeof(ILoginAccountDataSource).Assembly);
+			container.WithEntityPatternsInstaller(c => { c.GeneralLifestyle = configuration.ScopedLifestyle; })
+				.AddEntityPatterns()
+				//.AddLocalizationServices<Language>()
+				.AddDbContext<NewProjectTemplateDbContext>(options)
+				.AddDataLayer(typeof(ILoginAccountDataSource).Assembly);
 		}
 
 		private static void InstallHavitServices(IWindsorContainer container)
@@ -106,9 +106,9 @@ namespace Havit.NewProjectTemplate.WindsorInstallers
 
 		private static void InstallByServiceAttribute(IWindsorContainer container, InstallConfiguration configuration)
 		{
-			container.InstallByServiceAttibute(typeof(Havit.NewProjectTemplate.DataLayer.Properties.AssemblyInfo).Assembly, configuration.ServiceProfiles, configuration.ScopedLifestyle);
-			container.InstallByServiceAttibute(typeof(Havit.NewProjectTemplate.Services.Properties.AssemblyInfo).Assembly, configuration.ServiceProfiles, configuration.ScopedLifestyle);
-			container.InstallByServiceAttibute(typeof(Havit.NewProjectTemplate.Facades.Properties.AssemblyInfo).Assembly, configuration.ServiceProfiles, configuration.ScopedLifestyle);
+			container.InstallByServiceAttribute(typeof(Havit.NewProjectTemplate.DataLayer.Properties.AssemblyInfo).Assembly, configuration.ServiceProfiles, configuration.ScopedLifestyle);
+			container.InstallByServiceAttribute(typeof(Havit.NewProjectTemplate.Services.Properties.AssemblyInfo).Assembly, configuration.ServiceProfiles, configuration.ScopedLifestyle);
+			container.InstallByServiceAttribute(typeof(Havit.NewProjectTemplate.Facades.Properties.AssemblyInfo).Assembly, configuration.ServiceProfiles, configuration.ScopedLifestyle);
 		}
 
 		private static void InstallAuthorizationHandlers(IWindsorContainer container, InstallConfiguration installConfiguration)
