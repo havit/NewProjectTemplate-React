@@ -78,16 +78,19 @@ namespace Havit.NewProjectTemplate.WebAPI
 		        app.UseDeveloperExceptionPage();
 	        }
 
-			app.UseCustomizedCors(corsOptions);
             app.UseStaticFiles();
-            app.UseAuthentication();
 
 	        app.UseRequestLocalization();
 
 			app.UseExceptionMonitoring();
 			app.UseErrorToJson();
+
 			app.UseRouting();
+
+			app.UseCustomizedCors(corsOptions);
+            app.UseAuthentication();
 			app.UseAuthorization();
+
 			app.UseEndpoints(endpoints => endpoints.MapControllers());
 
 			app.UseCustomizedOpenApiSwaggerUI();
