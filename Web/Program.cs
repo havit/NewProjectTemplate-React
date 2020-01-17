@@ -7,24 +7,29 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 
 namespace Havit.NewProjectTemplate.Web
 {
-    public static class Program
-    {
-        public static void Main(string[] args)
-        {
+	public static class Program
+	{
+		public static void Main(string[] args)
+		{
+            Directory.SetCurrentDirectory(AppContext.BaseDirectory); // Protože in-process čte statické files z jiného místa
 			CreateWebHostBuilder(args).Build().Run();
 		}
 
-		public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+		public static IHostBuilder CreateWebHostBuilder(string[] args)
 		{
-			return WebHost.CreateDefaultBuilder(args)
-				.UseStartup<Startup>()
+			return Host.CreateDefaultBuilder(args)
+				.ConfigureWebHostDefaults(webBuilder =>
+				{
+					webBuilder.UseStartup<Startup>();
 #if DEBUG
-				.UseEnvironment("Development") // pro pohodlnější spuštění z command line
-			    .UseUrls("http://localhost:9900") // pro pohodlnější spuštění z command line
+					webBuilder.UseEnvironment("Development"); // pro pohodlnější spuštění z command line
+					webBuilder.UseUrls("http://localhost:9900"); // pro pohodlnější spuštění z command line
 #endif
+				})
 				.ConfigureAppConfiguration((hostContext, config) =>
 				{
 					// delete all default configuration providers
@@ -45,5 +50,5 @@ namespace Havit.NewProjectTemplate.Web
 #endif
 				});
 		}
-    }
+	}
 }
