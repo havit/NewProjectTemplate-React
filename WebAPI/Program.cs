@@ -11,6 +11,7 @@ namespace Havit.NewProjectTemplate.WebAPI
     {
         public static void Main(string[] args)
         {
+            Directory.SetCurrentDirectory(AppContext.BaseDirectory); // Protože in-process čte statické files z jiného místa
 			CreateHostBuilder(args).Build().Run();
 		}
 
