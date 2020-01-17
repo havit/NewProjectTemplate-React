@@ -42,11 +42,9 @@ namespace Havit.NewProjectTemplate.WebAPI.Infrastructure.ConfigurationExtensions
 					//options.SuppressConsumesConstraintForFormFileParameters = true;
 					//options.SuppressInferBindingSourcesForParameters = true;
 					options.SuppressModelStateInvalidFilter = true; // zajišťujeme pomocí ValidateModelAttribute výše
-				})
+				});
 #if DEBUG
-				.AddNewtonsoftJson(options => options.SerializerSettings.Formatting = Formatting.Indented);
-#else
-				.AddNewtonsoftJson();
+			mvcBuilder.AddJsonOptions(options => options.JsonSerializerOptions.WriteIndented = true);
 #endif
 		}
 	}
