@@ -87,6 +87,7 @@ namespace Havit.NewProjectTemplate.WebAPI
 			app.UseExceptionMonitoring();
 			app.UseErrorToJson();
 			app.UseRouting();
+			app.UseAuthorization();
 			app.UseEndpoints(endpoints => endpoints.MapControllers());
 
 			app.UseCustomizedOpenApiSwaggerUI();
