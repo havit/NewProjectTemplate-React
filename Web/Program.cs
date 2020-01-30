@@ -35,9 +35,8 @@ namespace Havit.NewProjectTemplate.Web
 					// delete all default configuration providers
 					config.Sources.Clear();
 					config
-						.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-						.AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true)
-						.AddJsonFile(@"Config\appsettings.json", optional: true, reloadOnChange: true)
+						.AddJsonFile("appsettings.Web.json", optional: false, reloadOnChange: true)
+						.AddJsonFile($"appsettings.Web.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true)
 						.AddEnvironmentVariables();
 				})
 				.ConfigureLogging((hostingContext, logging) =>

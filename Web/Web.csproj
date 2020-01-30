@@ -46,7 +46,7 @@
 		</ItemGroup>
 	</Target>
 
-	<Target Name="TfsPublish" AfterTargets="AfterBuild" Condition="'$(PublishDirectory)' != ''">
+	<Target Name="TfsPublish" AfterTargets="AfterPublish" Condition="'$(PublishDirectory)' != ''">
 		<ItemGroup>
 			<PublishToCopy Include="obj\Release\TfsPublish\*.zip" />
 		</ItemGroup>
