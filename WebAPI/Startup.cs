@@ -21,6 +21,7 @@ using Havit.NewProjectTemplate.WebAPI.Infrastructure.Security;
 using Havit.NewProjectTemplate.Facades.Infrastructure.Security.Authentication;
 using Havit.NewProjectTemplate.Facades.Infrastructure.Security.Claims;
 using Havit.NewProjectTemplate.DependencyInjection;
+using Havit.AspNetCore.Mvc.ExceptionMonitoring.Services;
 
 [assembly: ApiControllerAttribute]
 
@@ -71,31 +72,39 @@ namespace Havit.NewProjectTemplate.WebAPI
 		/// <summary>
 		/// Configure middleware.
 		/// </summary>
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IOptions<Havit.NewProjectTemplate.WebAPI.Infrastructure.Cors.CorsOptions> corsOptions)
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IOptions<Havit.NewProjectTemplate.WebAPI.Infrastructure.Cors.CorsOptions> corsOptions, IExceptionMonitoringService exceptionMonitoringService)
         {
-			if (env.IsDevelopment())
-	        {
-		        app.UseDeveloperExceptionPage();
-	        }
+			try
+			{
+				if (env.IsDevelopment())
+				{
+					app.UseDeveloperExceptionPage();
+				}
 
-            app.UseStaticFiles();
+				app.UseStaticFiles();
 
-	        app.UseRequestLocalization();
+				app.UseRequestLocalization();
 
-			app.UseExceptionMonitoring();
-			app.UseErrorToJson();
+				app.UseExceptionMonitoring();
+				app.UseErrorToJson();
 
-			app.UseRouting();
+				app.UseRouting();
 
-			app.UseCustomizedCors(corsOptions);
-            app.UseAuthentication();
-			app.UseAuthorization();
+				app.UseCustomizedCors(corsOptions);
+				app.UseAuthentication();
+				app.UseAuthorization();
 
-			app.UseEndpoints(endpoints => endpoints.MapControllers());
+				app.UseEndpoints(endpoints => endpoints.MapControllers());
 
-			app.UseCustomizedOpenApiSwaggerUI();
+				app.UseCustomizedOpenApiSwaggerUI();
 
-	        app.UpgradeDatabaseSchemaAndData();
+				app.UpgradeDatabaseSchemaAndData();
+			}
+			catch (Exception exception)
+			{
+				exceptionMonitoringService.HandleException(exception);
+				throw;
+			}
         }
 
     }
