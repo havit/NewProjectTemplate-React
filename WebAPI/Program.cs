@@ -32,8 +32,8 @@ namespace Havit.NewProjectTemplate.WebAPI
 					// delete all default configuration providers
 					config.Sources.Clear();
 					config
-						.AddJsonFile("appsettings.WebAPI.json", optional: false, reloadOnChange: true)
-						.AddJsonFile($"appsettings.WebAPI.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+						.AddJsonFile("appsettings.WebAPI.json", optional: false)
+						.AddJsonFile($"appsettings.WebAPI.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true)
 						.AddEnvironmentVariables();
 				})
 				.ConfigureLogging((hostingContext, logging) =>
