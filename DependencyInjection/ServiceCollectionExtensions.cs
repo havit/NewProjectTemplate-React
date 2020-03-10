@@ -37,11 +37,7 @@ namespace Havit.NewProjectTemplate.DependencyInjection
 		[MethodImpl(MethodImplOptions.NoInlining)]
 		public static IServiceCollection ConfigureForTests(this IServiceCollection services, bool useInMemoryDb = true)
 		{
-			string environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-			if (string.IsNullOrEmpty(environment))
-			{
-				environment = "Development";
-			}
+			string environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Developement";
 
 			IConfigurationRoot configuration = new ConfigurationBuilder()
 				.SetBasePath(Directory.GetCurrentDirectory())
