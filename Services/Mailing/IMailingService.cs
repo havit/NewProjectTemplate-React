@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MimeKit;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -9,6 +10,6 @@ namespace Havit.NewProjectTemplate.Services.Mailing
 {
 	public interface IMailingService
 	{
-		void Send(MailMessage mailMessage);
+		void Send(MimeMessage mailMessage);
 	}
 }
