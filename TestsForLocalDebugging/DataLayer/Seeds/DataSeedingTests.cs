@@ -20,11 +20,7 @@ namespace Havit.NewProjectTemplate.TestsForLocalDebugging.DataLayer.Seeds
 		public void DataSeedRunner_SeedCoreProfile()
 		{
 			// arrange
-			var dbContext = ServiceProvider.GetRequiredService<IDbContext>();
 			var seedRunner = ServiceProvider.GetRequiredService<IDataSeedRunner>();
-			dbContext.Database.EnsureDeleted();
-			dbContext.Database.EnsureCreated();
-			dbContext.Database.Migrate();
 
 			// act
 			seedRunner.SeedData<CoreProfile>();
