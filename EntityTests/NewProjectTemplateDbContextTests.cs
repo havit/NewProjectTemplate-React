@@ -3,7 +3,7 @@ using Havit.NewProjectTemplate.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Havit.NewProjectTemplate.Tests.Entity
+namespace Havit.NewProjectTemplate.EntityTests.Entity
 {
 	[TestClass]
 	public class NewProjectTemplateDbContextTests
