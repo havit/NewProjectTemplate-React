@@ -22,6 +22,8 @@ using Havit.NewProjectTemplate.Facades.Infrastructure.Security.Authentication;
 using Havit.NewProjectTemplate.Facades.Infrastructure.Security.Claims;
 using Havit.NewProjectTemplate.DependencyInjection;
 using Havit.AspNetCore.Mvc.ExceptionMonitoring.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 [assembly: ApiControllerAttribute]
 
@@ -49,7 +51,15 @@ namespace Havit.NewProjectTemplate.WebAPI
 
 	        services.AddCustomizedRequestLocalization();
 			services.AddCustomizedMvc(configuration);
-            services.AddAuthorization();
+            services.AddAuthorization(options =>
+            {
+	            // TODO: Security policy
+	            var defaultPolicy = new AuthorizationPolicyBuilder(AuthenticationConfig.GetAuthenticationSchemes(configuration))
+		            .RequireAuthenticatedUser()
+		            .Build();
+
+	            options.DefaultPolicy = defaultPolicy;
+            });
             services.AddCustomizedAuthentication(configuration); // musí být voláno až po AddMvc, jinak nejsou volány IClaimsTransformation.
 	        services.AddCustomizedMailing(configuration);
 	        
@@ -94,7 +104,7 @@ namespace Havit.NewProjectTemplate.WebAPI
 				app.UseAuthentication();
 				app.UseAuthorization();
 
-				app.UseEndpoints(endpoints => endpoints.MapControllers());
+				app.UseEndpoints(endpoints => endpoints.MapControllers().RequireAuthorization());
 
 				app.UseCustomizedOpenApiSwaggerUI();
 

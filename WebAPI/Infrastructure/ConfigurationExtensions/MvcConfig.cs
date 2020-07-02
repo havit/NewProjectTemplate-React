@@ -28,11 +28,6 @@ namespace Havit.NewProjectTemplate.WebAPI.Infrastructure.ConfigurationExtensions
 			var mvcBuilder = services
 				.AddControllers(options =>
 				{
-					// TODO: Security policy
-					var defaultPolicy = new AuthorizationPolicyBuilder(AuthenticationConfig.GetAuthenticationSchemes(configuration))
-						.RequireAuthenticatedUser()
-						.Build();
-					options.Filters.Add(new AuthorizeFilter(defaultPolicy));
 					options.Filters.Add(new ValidateModelAttribute { ResultSelector = ValidationErrorModel.FromModelState() });
 				})
 				.SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
