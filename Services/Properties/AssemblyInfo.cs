@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: InternalsVisibleTo("Havit.NewProjectTemplate.Tests")]
+[assembly: InternalsVisibleTo("Havit.NewProjectTemplate.ServicesTests")]
 
 namespace Havit.NewProjectTemplate.Services.Properties
 {

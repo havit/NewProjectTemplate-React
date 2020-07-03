@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("Havit.NewProjectTemplate.Tests")]
+[assembly: InternalsVisibleTo("Havit.NewProjectTemplate.FacadesTests")]
 
 namespace Havit.NewProjectTemplate.Facades.Properties
 {
