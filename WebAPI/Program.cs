@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Linq;
 
 namespace Havit.NewProjectTemplate.WebAPI
 {
@@ -29,8 +30,12 @@ namespace Havit.NewProjectTemplate.WebAPI
 				})
 				.ConfigureAppConfiguration((hostContext, config) =>
 				{
-					// delete all default configuration providers
-					config.Sources.Clear();
+					// delete all default configuration providers except ChainedConfigurationSource (when removed the UseUrls method and others do not work)
+					foreach (IConfigurationSource configurationSource in config.Sources.Where(s => !(s is ChainedConfigurationSource)).ToList())
+					{
+						config.Sources.Remove(configurationSource);
+					}
+
 					config
 						.AddJsonFile("appsettings.WebAPI.json", optional: false)
 						.AddJsonFile($"appsettings.WebAPI.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true)

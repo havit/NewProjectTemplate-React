@@ -68,7 +68,12 @@ namespace Havit.NewProjectTemplate.WebAPI.Infrastructure.ConfigurationExtensions
 			// Pod IClaimsTransformation je standardně zaregistrováno NoopClaimsTransformation
 			// Pokud přidáme naší vlastní službu, je tato až druhá a není tak resolvována (uff),
 			// Proto tuto službu, kterou nechceme, odebereme (a použijeme naší službu).
-			services.Remove(services.Where(item => item.ImplementationType == typeof(NoopClaimsTransformation)).Single());
+			ServiceDescriptor noopClaimsTransformationServiceDescriptor = services.Where(item => item.ImplementationType == typeof(NoopClaimsTransformation)).SingleOrDefault();
+			if (noopClaimsTransformationServiceDescriptor != null)
+			{
+				services.Remove(noopClaimsTransformationServiceDescriptor);
+			}
+
 			addCustomizedAuthenticationCalled = true;
 
         }

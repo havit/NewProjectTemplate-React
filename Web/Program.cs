@@ -32,8 +32,12 @@ namespace Havit.NewProjectTemplate.Web
 				})
 				.ConfigureAppConfiguration((hostContext, config) =>
 				{
-					// delete all default configuration providers
-					config.Sources.Clear();
+					// delete all default configuration providers except ChainedConfigurationSource (when removed the UseUrls method and others do not work)
+					foreach (IConfigurationSource configurationSource in config.Sources.Where(s => !(s is ChainedConfigurationSource)).ToList())
+					{
+						config.Sources.Remove(configurationSource);
+					}
+
 					config
 						.AddJsonFile("appsettings.Web.json", optional: false)
 						.AddJsonFile($"appsettings.Web.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true)
