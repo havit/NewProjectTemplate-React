@@ -7,19 +7,24 @@ using Havit.Services.TimeServices;
 
 namespace Havit.NewProjectTemplate.Services.Infrastructure.TimeService
 {
-    /// <summary>
-    /// Poskytuje aktuální čas v časové zóně "Central Europe Standard Time".
-    /// </summary>
-    public class ApplicationTimeService : TimeZoneTimeServiceBase, ITimeService
-    {
-        /// <summary>
-        /// Aktuální čas v časové zóně aplikace
-        /// </summary>
-        public static DateTime LocalNow => new ApplicationTimeService().GetCurrentTime();
-
-        /// <summary>
-        /// Vrací časovou zónu, pro kterou je poskytován aktuální čas. Vždy "Central Europe Standard Time".
-        /// </summary>
-        protected override TimeZoneInfo CurrentTimeZone => TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time");
-    }
+	/// <summary>
+	/// Provides current time in local time-zone ("Central Europe Standard Time", "Europe/Prague" for non-Windows platforms).
+	/// </summary>
+	public class ApplicationTimeService : TimeZoneTimeServiceBase, ITimeService
+	{
+		/// <summary>
+		/// Returns time-zone you want to treat as local ("Central Europe Standard Time", "Europe/Prague" for non-Windows platforms).
+		/// </summary>
+		protected override TimeZoneInfo CurrentTimeZone
+		{
+			get
+			{
+				if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+				{
+					return TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time");
+				}
+				return TimeZoneInfo.FindSystemTimeZoneById("Europe/Prague"); // MacOS
+			}
+		}
+	}
 }
