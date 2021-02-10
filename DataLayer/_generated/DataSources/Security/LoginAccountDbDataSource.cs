@@ -17,7 +17,7 @@ using Havit.Data.EntityFrameworkCore.Patterns.SoftDeletes;
 namespace Havit.NewProjectTemplate.DataLayer.DataSources.Security
 {
 	[System.CodeDom.Compiler.GeneratedCode("Havit.Data.EntityFrameworkCore.CodeGenerator", "1.0")]
-	public class LoginAccountDbDataSource : DbDataSource<Havit.NewProjectTemplate.Model.Security.LoginAccount>, ILoginAccountDataSource
+	public partial class LoginAccountDbDataSource : DbDataSource<Havit.NewProjectTemplate.Model.Security.LoginAccount>, ILoginAccountDataSource
 	{
 		public LoginAccountDbDataSource(IDbContext dbContext, ISoftDeleteManager softDeleteManager)
 			: base(dbContext, softDeleteManager)

@@ -32,7 +32,7 @@ namespace Havit.NewProjectTemplate.DataLayer.DataEntries.Common
         }
 		private Havit.NewProjectTemplate.Model.Common.ApplicationSettings current;
 
-		public ApplicationSettingsEntries(IRepository<Havit.NewProjectTemplate.Model.Common.ApplicationSettings> repository)
+		public ApplicationSettingsEntries(Havit.NewProjectTemplate.DataLayer.Repositories.Common.IApplicationSettingsRepository repository)
 			: base(repository)
 		{
 		}
