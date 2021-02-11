@@ -21,7 +21,7 @@ using Havit.NewProjectTemplate.WebAPI.Infrastructure.Security;
 using Havit.NewProjectTemplate.Facades.Infrastructure.Security.Authentication;
 using Havit.NewProjectTemplate.Facades.Infrastructure.Security.Claims;
 using Havit.NewProjectTemplate.DependencyInjection;
-using Havit.AspNetCore.Mvc.ExceptionMonitoring.Services;
+using Havit.AspNetCore.ExceptionMonitoring.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 
