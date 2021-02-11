@@ -24,6 +24,7 @@ using Havit.NewProjectTemplate.DependencyInjection;
 using Havit.AspNetCore.ExceptionMonitoring.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.ApplicationInsights.DependencyCollector;
 
 [assembly: ApiControllerAttribute]
 
@@ -70,6 +71,7 @@ namespace Havit.NewProjectTemplate.WebAPI
             services.AddCustomizedOpenApi();			
 
 	        services.AddApplicationInsightsTelemetry(configuration);
+			services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((module, o) => { module.EnableSqlCommandTextInstrumentation = true; });
 
 			services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
